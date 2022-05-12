@@ -1,5 +1,16 @@
 <?php
 include 'mysqli.php';
+if (isset($_GET['sid']) and is_numeric($_GET['sid'])) {
+    $id = $_GET['sid'];
+    $sql = 'DELETE FROM simple_small WHERE id=' . $id;
+    if ($kl->dbQuery($sql)) {
+        header('Location: cards.php');
+    } else {
+?>
+        <p class="text-danger fw-bold">Midagi läks kustutamisega valesti</p>
+<?php
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +21,7 @@ include 'mysqli.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <title>Document</title>
+    <title>Cards view</title>
 </head>
 
 <body>
@@ -20,12 +31,16 @@ include 'mysqli.php';
     $res = $kl->dbGetArray($sql);
     if ($res !== false) {
     ?>
+
         <div class="container-fluid">
-            <div class="row row-cols-auto">
+            <div class="col-3 my-2" style="max-width: 12rem;">
+                <a href="index.php" class="form-control btn btn-warning">Avalehele</a>
+            </div>
+            <div class="row row-cols-auto mx-auto">
                 <?php
                 foreach ($res as $key => $val) {
                 ?>
-                    <div class="col col-md-auto col-lg-auto">
+                    <div class="col-sm-auto col-md-auto col-lg-auto g-1">
                         <div class="card" style="max-width: 20rem;">
                             <div class="card-header text-center"><?php echo $val['name']; ?></div>
                             <div class="card-body">
@@ -47,7 +62,7 @@ include 'mysqli.php';
                             <div class="card-footer row g-0 row-cols-2">
                                 <div class="col">
                                     <div class="text-start">
-                                        <a href="#" class="btn btn-primary">Delete</a>
+                                        <a href="cards.php?sid=<?php echo $val['id']; ?>" onclick="return confirm('Kas soovid kirje kustutada?')" class="btn btn-primary">Delete</a>
                                     </div>
                                 </div>
                                 <div class="col">

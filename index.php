@@ -29,7 +29,10 @@ if(isset($_GET['sid']) and is_numeric($_GET['sid'])) {
 <body>
     <div class="container">
         <div class="row my-2">
-            <a href="create.php" class="btn btn-success col-1">Lisamine</a>
+            <div class="col">
+                <a href="create.php" class="btn btn-success col-3" style="max-width: 12rem;" >Lisamine</a>
+                <a href="cards.php" class="btn btn-secondary col-3" style="max-width: 12rem;">Cards view</a>
+            </div>
         </div>
         <!-- tabeli osa -->
         <div class="row">
