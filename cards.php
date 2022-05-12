@@ -20,36 +20,47 @@ include 'mysqli.php';
     $res = $kl->dbGetArray($sql);
     if ($res !== false) {
     ?>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row row-cols-auto">
-            <?php 
-            foreach ($res as $key => $val) {
-            ?>
-                <div class="col">
-                    <div class="card">
-                        <div class="card-header text-center"><?php echo $val['name']; ?></div>
-                        <div class="card-body">
-                            <p class="card-text">Sünniaeg: <?php echo $kl->dbDateToEstDate($val['birth']); ?></p>
-                            <p class="card-text">Palk: <?php echo $val['salary']; ?></p>
-                            <p class="card-text">Pikkus: <?php echo $val['height']; ?></p>
-                        </div>
-                        <div class="card-footer row g-0 row-cols-2">
-                            <div class="col">
-                                <div class="text-start">
-                                    <a href="#" class="btn btn-primary">Delete</a>
-                                </div>
+                <?php
+                foreach ($res as $key => $val) {
+                ?>
+                    <div class="col col-md-auto col-lg-auto">
+                        <div class="card" style="max-width: 20rem;">
+                            <div class="card-header text-center"><?php echo $val['name']; ?></div>
+                            <div class="card-body">
+                                <table class="table table-borderless">
+                                    <tr>
+                                        <td class="card-text">Sünniaeg: </td>
+                                        <td class="card-text text-start"><?php echo $kl->dbDateToEstDate($val['birth']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="card-text">Palk: </td>
+                                        <td class="card-text text-start"><?php echo $val['salary']; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="card-text">Palk: </td>
+                                        <td class="card-text text-start"><?php echo $val['height']; ?></td>
+                                    </tr>
+                                </table>
                             </div>
-                            <div class="col">
-                                <div class="text-end text-danger">
-                                    <p><?php echo $kl->dbDateToEstDateClock($val['added']); ?></p>
+                            <div class="card-footer row g-0 row-cols-2">
+                                <div class="col">
+                                    <div class="text-start">
+                                        <a href="#" class="btn btn-primary">Delete</a>
+                                    </div>
                                 </div>
+                                <div class="col">
+                                    <div class="text-end text-danger">
+                                        <p><?php echo $kl->dbDateToEstDateClock($val['added']); ?></p>
+                                    </div>
 
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <?php 
-            }
+                <?php
+                }
                 ?>
             </div>
         </div>
